@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { FlatList, Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import Dropdown from "./dropdown";
 // import { mappedImages } from "@/images";
 
 
@@ -12,6 +13,18 @@ export default function PostersImage() {
         require('../assets/images/designs (4).jpg'),
         require('../assets/images/designs (5).jpg'),
         require('../assets/images/designs (6).jpg'),
+    ];
+    const dimensions = [
+"1080x1920 px",
+"1200x628 px",
+"1080x1080 px",
+"1920x1080 px",
+    ]
+
+    const categories = [
+        "Foods and Beverages",
+        "Travel and Leisure",
+        "Health and Wellness",
     ];
 
     const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
@@ -53,7 +66,8 @@ export default function PostersImage() {
 
             <View style={styles.settingsSection}>
                 <Text style={styles.settings}>Settings</Text>
-                
+                <Dropdown label=" Size" options={dimensions} />
+                <Dropdown label=" Category" options={categories} />
             </View>
         </View>
     );

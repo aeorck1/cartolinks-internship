@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
   body:{
     backgroundColor: 'black',
     flex: 1,
-    padding: 10,
+    padding: 2,
   },
 
   container: {
