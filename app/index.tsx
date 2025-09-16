@@ -23,7 +23,7 @@ export default function Index() {
 const styles = StyleSheet.create({
   body:{
     backgroundColor: 'black',
-    height: '100%',
+    flex: 1,
     padding: 10,
   },
 

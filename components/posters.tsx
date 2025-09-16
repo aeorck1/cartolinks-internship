@@ -1,25 +1,44 @@
-import {ScrollView, View, Text, StyleSheet, Image} from "react-native";
+import React, { useState } from "react";
+import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+// import { mappedImages } from "@/images";
+
+
 
 export default function PostersImage() {
-const images = [
-    {id: 1, uri: '../assets/images/designs (1).jpg'},
-    {id: 2, uri: '../assets/images/designs (2).jpg'},
-    {id: 3, uri: '../assets/images/designs (3).jpg'},
-    // Add more image URIs as needed
-];
+    const images = [
+        require('../assets/images/designs (1).jpg'),
+        require('../assets/images/designs (2).jpg'),
+        require('../assets/images/designs (3).jpg'),
+        require('../assets/images/designs (4).jpg'),
+        require('../assets/images/designs (5).jpg'),
+        require('../assets/images/designs (6).jpg'),
+    ];
 
-
+    const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
 
     return(
         <View>
-            <ScrollView horizontal={true} style={styles.scrollView}>
-                {images.map((image) => (
-                    <View key={image.id} style={styles.poster}>
-                        <Image source={{uri: image.uri}} style={{width: '100%', height: '100%'}} resizeMode="cover" />
-                    </View>
-                ))}
-            </ScrollView>
-            <Text style={styles.text}>Posters</Text>
+            <Text style={styles.question}>What type of poster do you want to create?</Text>
+            <FlatList
+                horizontal
+                data={images}
+                keyExtractor={(_, index) => index.toString()}
+                renderItem={({ item, index }) => (
+                    <TouchableOpacity onPress={() => setSelectedIndex(index)} activeOpacity={0.8}>
+                        <Image
+                            source={item}
+                            style={[
+                                styles.poster,
+                                selectedIndex === index && { borderWidth: 3, borderColor: 'white'  }
+                            ]}
+                            resizeMode="cover"
+                        />
+                    </TouchableOpacity>
+                )}
+                contentContainerStyle={{ alignItems: 'center' }}
+                style={styles.scrollView}
+                showsHorizontalScrollIndicator={false}
+            />
         </View>
     );
 }
@@ -28,17 +47,29 @@ const images = [
 
 // Styles Goes here.
     const styles = StyleSheet.create({
+question:{
+color: 'white',
+// marginBottom: 10,
+fontSize: 20,
+fontWeight: '800',
+fontFamily: 'Sans-serif',
+
+},
+
         scrollView: {
-            height: 200,
-            backgroundColor: 'black',
-            marginTop: 15,
-            paddingVertical: 15
+            height: 110,
+            marginTop:4,
+            paddingVertical: 15,
+         
+            
+
         },
         poster: {
-            width: 130,
-            // height: 180,
+            width: 75,
+            height: 100,
             backgroundColor: 'gray',
-            marginHorizontal: 5
+            marginHorizontal: 5,
+            borderRadius: 10,
         },
         text: {
             color: 'white',
