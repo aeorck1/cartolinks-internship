@@ -5,7 +5,7 @@ import PostersImage from "@/components/posters";
 
 export default function Index() {
   return (
-   <SafeAreaView style={{ flex: 1 }}>
+   <SafeAreaView style={styles.body}>
      <View style= {styles.body}
     >
   <StatusBar backgroundColor="green" hideTransitionAnimation="fade" style="dark" />
