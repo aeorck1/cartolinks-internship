@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { FlatList, Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 // import { mappedImages } from "@/images";
 
 
@@ -39,6 +39,22 @@ export default function PostersImage() {
                 style={styles.scrollView}
                 showsHorizontalScrollIndicator={false}
             />
+
+        <View>
+            <TextInput
+                style={styles.input}
+                placeholder="Enter poster title"
+                placeholderTextColor="gray"
+                multiline={true}
+                numberOfLines={6}
+                 />
+            <Image source={require('../assets/images/append-image.png')} style={styles.appendImage} />
+        </View>
+
+            <View style={styles.settingsSection}>
+                <Text style={styles.settings}>Settings</Text>
+                
+            </View>
         </View>
     );
 }
@@ -49,7 +65,6 @@ export default function PostersImage() {
     const styles = StyleSheet.create({
 question:{
 color: 'white',
-// marginBottom: 10,
 fontSize: 20,
 fontWeight: '800',
 fontFamily: 'Sans-serif',
@@ -71,8 +86,36 @@ fontFamily: 'Sans-serif',
             marginHorizontal: 5,
             borderRadius: 10,
         },
-        text: {
+
+        settingsSection: {
+            marginTop: 20,
+            borderTopWidth: 1,
+            borderColor: '#3a3a3aff',
+            borderWidth: 2,
+        },
+        settings: {
+            color: '#b8b8b8ff',
+            marginTop: 20
+        },
+        input: {
+            position: 'relative',
+            height: 150,
+            width: '99%',
+            backgroundColor: '#1e1e1e',
+            padding: 6,
+            paddingVertical: 6,
+            borderRadius: 5,
+            paddingHorizontal: 10,
+            marginTop: 10,
             color: 'white',
-            marginTop: 10
+            textAlignVertical: 'top', // Ensures text starts at the top
+        },
+        appendImage:{
+            position: 'absolute',
+            right: 15,
+            bottom: 10,
+            width: 20,
+            height: 20,
+            filter: 'invert(1)',
         }
     });
