@@ -1,4 +1,4 @@
-import { Text, View, StyleSheet, useColorScheme, StatusBar } from "react-native";
+import { Text, View, StyleSheet, useColorScheme, StatusBar, ScrollView } from "react-native";
 // import { StatusBar } from 'expo-status-bar';
 import { SafeAreaView } from "react-native-safe-area-context";
 import PostersImage from "@/components/posters";
@@ -11,7 +11,7 @@ const isDark = scheme ==="dark";
   return (
    <SafeAreaView style={styles.body}>
      <StatusBar showHideTransition="slide" backgroundColor={!isDark ? "#fff" : "#000"} barStyle={isDark ? "light-content" : "dark-content"} />
-     <View style= {styles.body}
+     <ScrollView style= {styles.body}
     >
  
       <View style={styles.container}  >
@@ -19,7 +19,7 @@ const isDark = scheme ==="dark";
     
         <PostersImage />
       </View>
-    </View>
+    </ScrollView>
     </SafeAreaView>
   );
 }
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
   body:{
     backgroundColor: 'black',
     flex: 1,
-    padding: 2,
+    padding: 4,
   },
 
   container: {

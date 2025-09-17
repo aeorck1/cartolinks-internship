@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { FlatList, Image, Pressable, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import Ionicons from 'react-native-vector-icons/Ionicons'
+import GenerateButton from "./ui/Button";
 
 
 
@@ -77,7 +78,11 @@ export default function PostersImage() {
             
 
                 {/* Size Selection */}
-                <View style={styles.selectRow}>
+              <View style={styles.selectRow}>
+                  <View style={[
+                      styles.selectRowChild,
+                      { borderBottomColor: '#333', borderBottomWidth: 1, paddingBottom: 8, marginBottom: 8 }
+                  ]}>
                     <Text style={styles.selectLabel}>Size</Text>
                     <Pressable
                         style={styles.selectBox}
@@ -87,18 +92,11 @@ export default function PostersImage() {
                          <Ionicons name="chevron-forward" size={18} color="white" style={{ marginLeft: 8 }} />
                     </Pressable>
                 </View>
-                {isVisible === 'size' && (
-                    <View style={styles.dropdownMenu}>
-                        {dimensions.map((dim, idx) => (
-                            <Pressable key={dim} onPress={() => { setSelectedSize(dim); setIsVisible(null); }}>
-                                <Text style={styles.dropdownItem}>{dim}</Text>
-                            </Pressable>
-                        ))}
-                    </View>
-                )}
+           
+                
 
                 {/* Category Selection */}
-                <View style={styles.selectRow}>
+                <View style={styles.selectRowChild}>
                     <Text style={styles.selectLabel}>Category</Text>
                     <Pressable
                         style={styles.selectBox}
@@ -110,6 +108,19 @@ export default function PostersImage() {
                         <Ionicons name="chevron-forward" size={18} color="white" style={{ marginLeft: 8 }} />
                     </Pressable>
                 </View>
+                </View>
+
+     {isVisible === 'size' && (
+                    <View style={styles.dropdownMenu}>
+                        {dimensions.map((dim, idx) => (
+                            <Pressable key={dim} onPress={() => { setSelectedSize(dim); setIsVisible(null); }}>
+                                <Text style={styles.dropdownItem}>{dim}</Text>
+                            </Pressable>
+                        ))}
+                    </View>
+                )}
+
+
                 {isVisible === 'category' && (
                     <View style={styles.dropdownMenu}>
                         {categories.map((cat, idx) => (
@@ -120,6 +131,8 @@ export default function PostersImage() {
                     </View>
                 )}
             </View>
+
+            <GenerateButton buttonName="Generate" />
         </View>
     );
 }
@@ -186,13 +199,12 @@ width: '50%',
             height: 150,
             width: '99%',
             backgroundColor: '#1e1e1e',
-            padding: 6,
-            paddingVertical: 6,
+            padding: 8,
             borderRadius: 5,
             paddingHorizontal: 10,
             marginTop: 10,
             color: 'white',
-            textAlignVertical: 'top', // Ensures text starts at the top
+            textAlignVertical: 'top',
         },
         appendImage:{
             position: 'absolute',
@@ -203,16 +215,23 @@ width: '50%',
             filter: 'invert(1)',
         },
         selectRow: {
+            flexDirection: 'column',
+           borderRadius: 4,
+           backgroundColor: 'rgba(35, 35, 35, 1)',
+        padding: 8,
+        },
+
+        selectRowChild: {
             flexDirection: 'row',
             alignItems: 'center',
             justifyContent: 'space-between',
-            gap: 10,
-            padding: 8,
-            backgroundColor: 'rgba(35, 35, 35, 1)',
+            gap: 10,            
         },
+
         selectLabel: {
-            color: '#b8b8b8ff',
+            color: '#ffffff',
             fontSize: 16,
+        
         },
         selectBox: {
             backgroundColor: '#232323',
@@ -226,7 +245,7 @@ width: '50%',
             
         },
         selectValue: {
-            color: 'white',
+            color: '#b8b8b8ff',
             fontSize: 16,
         },
         dropdownMenu: {
