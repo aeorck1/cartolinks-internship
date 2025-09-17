@@ -46,16 +46,23 @@ export default function PostersImage() {
                 data={images}
                 keyExtractor={(_, index) => index.toString()}
                 renderItem={({ item, index }) => (
-                    <TouchableOpacity onPress={() => setSelectedIndex(index)} activeOpacity={0.8}>
-                        <Image
-                            source={item}
-                            style={[
-                                styles.poster,
-                                selectedIndex === index && { borderWidth: 3, borderColor: 'white'  }
-                            ]}
-                            resizeMode="cover"
-                        />
-                    </TouchableOpacity>
+                   <TouchableOpacity
+  onPress={() => setSelectedIndex(index)}
+  activeOpacity={0.8}
+  accessibilityRole="imagebutton"
+  accessibilityLabel={`Poster option ${index + 1}`}
+  accessibilityState={{ selected: selectedIndex === index }}
+>
+  <Image
+    source={item}
+    style={[
+      styles.poster,
+      selectedIndex === index && { borderWidth: 3, borderColor: "white" },
+    ]}
+    resizeMode="cover"
+  />
+</TouchableOpacity>
+
                 )}
                 contentContainerStyle={{ alignItems: 'center' }}
                 style={styles.scrollView}
@@ -63,76 +70,106 @@ export default function PostersImage() {
             />
 
         <View>
-            <TextInput
-                style={styles.input}
-                placeholder="Enter poster title"
-                placeholderTextColor="gray"
-                multiline={true}
-                numberOfLines={6}
-                 />
+          <TextInput
+  style={styles.input}
+  placeholder="Enter poster title"
+  placeholderTextColor="gray"
+  multiline={true}
+  numberOfLines={6}
+  accessibilityLabel="Poster title input"
+  accessibilityHint="Enter the title text for your poster"
+/>
+
             <Image source={require('../assets/images/append-image.png')} style={styles.appendImage} />
         </View>
 
-            <View style={styles.settingsSection}>
-                <Text style={styles.settings}>Settings</Text>
-            
+           <View style={styles.settingsSection}>
+  <Text style={styles.settings}>Settings</Text>
 
-                {/* Size Selection */}
-              <View style={styles.selectRow}>
-                  <View style={[
-                      styles.selectRowChild,
-                      { borderBottomColor: '#333', borderBottomWidth: 1, paddingBottom: 8, marginBottom: 8 }
-                  ]}>
-                    <Text style={styles.selectLabel}>Size</Text>
-                    <Pressable
-                        style={styles.selectBox}
-                        onPress={() => setIsVisible(isVisible === 'size' ? null : 'size')}
-                    >
-                        <Text style={styles.selectValue}>{selectedSize}</Text>
-                         <Ionicons name="chevron-forward" size={18} color="white" style={{ marginLeft: 8 }} />
-                    </Pressable>
-                </View>
-           
-                
+  {/* Size Selection */}
+ <View style={styles.selectRow}>
+     <View style={[styles.selectRow]}>
+    <View style={[styles.selectRowChild, styles.rowWithBorder]}>
+      <Text style={styles.selectLabel}>Size</Text>
+      <Pressable
+        style={styles.selectBox}
+        onPress={() => setIsVisible(isVisible === "size" ? null : "size")}
+      >
+        <Text style={styles.selectValue}>{selectedSize}</Text>
+        <Ionicons
+          name="chevron-forward"
+          size={18}
+          color="white"
+          style={{ marginLeft: 8 }}
+        />
+      </Pressable>
 
-                {/* Category Selection */}
-                <View style={styles.selectRowChild}>
-                    <Text style={styles.selectLabel}>Category</Text>
-                    <Pressable
-                        style={styles.selectBox}
-                        onPress={() => setIsVisible(isVisible === 'category' ? null : 'category')}
-                    >
-                        <Text style={styles.selectValue}>{selectedCategory}</Text>
-                        
-                        
-                        <Ionicons name="chevron-forward" size={18} color="white" style={{ marginLeft: 8 }} />
-                    </Pressable>
-                </View>
-                </View>
+      
+    </View>
 
-     {isVisible === 'size' && (
-                    <View style={styles.dropdownMenu}>
-                        {dimensions.map((dim, idx) => (
-                            <Pressable key={dim} onPress={() => { setSelectedSize(dim); setIsVisible(null); }}>
-                                <Text style={styles.dropdownItem}>{dim}</Text>
-                            </Pressable>
-                        ))}
-                    </View>
-                )}
+    {isVisible === "size" && (
+      <View style={styles.dropdownMenu}>
+        {dimensions.map((dim) => (
+          <Pressable
+            key={dim}
+            onPress={() => {
+              setSelectedSize(dim);
+              setIsVisible(null);
+            }}
+          >
+            <Text style={styles.dropdownItem}>{dim}</Text>
+          </Pressable>
+        ))}
+      </View>
+    )}
+  </View>
+
+  {/* Category Selection */}
+  <View style={styles.selectRow}>
+    <View style={styles.selectRowChild}>
+      <Text style={styles.selectLabel}>Category</Text>
+      <Pressable
+        style={styles.selectBox}
+        onPress={() =>
+          setIsVisible(isVisible === "category" ? null : "category")
+        }
+      >
+        <Text style={styles.selectValue}>{selectedCategory}</Text>
+        <Ionicons
+          name="chevron-forward"
+          size={18}
+          color="white"
+          style={{ marginLeft: 8 }}
+        />
+      </Pressable>
+    </View>
+
+    {isVisible === "category" && (
+      <View style={styles.dropdownMenu}>
+        {categories.map((cat) => (
+          <Pressable
+            key={cat}
+            onPress={() => {
+              setSelectedCategory(cat);
+              setIsVisible(null);
+            }}
+          >
+            <Text style={styles.dropdownItem}>{cat}</Text>
+          </Pressable>
+        ))}
+      </View>
+    )}
+  </View>
+    </View>
+</View>
 
 
-                {isVisible === 'category' && (
-                    <View style={styles.dropdownMenu}>
-                        {categories.map((cat, idx) => (
-                            <Pressable key={cat} onPress={() => { setSelectedCategory(cat); setIsVisible(null); }}>
-                                <Text style={styles.dropdownItem}>{cat}</Text>
-                            </Pressable>
-                        ))}
-                    </View>
-                )}
-            </View>
+           <GenerateButton
+  buttonName="Generate"
+  funcTrigger={() => {}}
+    hint="Generates a poster based on the selected options"
+/>
 
-            <GenerateButton buttonName="Generate" />
         </View>
     );
 }
@@ -176,6 +213,23 @@ width: '50%',
             
 
         },
+
+        rowWithBorder: {
+  borderBottomColor: "#333",
+  borderBottomWidth: 1,
+  paddingBottom: 8,
+  marginBottom: 8,
+},
+
+dropdownMenu: {
+  backgroundColor: "#000",
+  borderRadius: 8,
+  marginTop: 4,
+  borderWidth: 1,
+  borderColor: "#333",
+  // ❌ no absolute positioning anymore
+},
+
         poster: {
             width: 75,
             height: 100,
@@ -247,17 +301,6 @@ width: '50%',
         selectValue: {
             color: '#b8b8b8ff',
             fontSize: 16,
-        },
-        dropdownMenu: {
-            backgroundColor: '#000000ff',
-            borderRadius: 8,
-            marginTop: 4,
-            borderWidth: 1,
-            borderColor: '#333',
-            position: 'absolute',
-            left: 0,
-            right: 0,
-            zIndex: 10,
         },
         dropdownItem: {
             color: 'white',

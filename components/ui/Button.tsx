@@ -1,9 +1,9 @@
 import { View, Text, StyleSheet, Image } from "react-native";
 
-export default function GenerateButton ({ buttonName }: { buttonName: string }) {
+export default function GenerateButton ({ buttonName, funcTrigger, hint }: { buttonName: string, funcTrigger: () => void, hint: string }) {
     return (
         <View>
-            <View style={buttonStyle.thisButton} >
+            <View style={buttonStyle.thisButton} onTouchStart={funcTrigger} accessibilityRole="button" accessibilityLabel={buttonName} accessibilityHint={hint}>
                 {/* <Button title={buttonName} onPress={() => {}} color="#f194ff" /> */}
                <Image source={require('../../assets/images/Chat.jpg')} style={{ width: 24, height: 24 }} />
                 <Text style={buttonStyle.textformat}>{buttonName}</Text>
