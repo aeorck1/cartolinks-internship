@@ -1,6 +1,5 @@
 import { Text, View, StyleSheet, useColorScheme, StatusBar, ScrollView } from "react-native";
-// import { StatusBar } from 'expo-status-bar';
-import { SafeAreaView } from "react-native-safe-area-context";
+// import { SafeAreaView } from "react-native-safe-area-context";
 import PostersImage from "@/components/posters";
 
 export default function Index() {
