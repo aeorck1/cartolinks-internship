@@ -2,12 +2,14 @@ import React, { useState } from "react";
 import { FlatList, Image, Pressable, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import GenerateButton from "./ui/Button";
+import {LinearGradient} from 'expo-linear-gradient';
 
 
 
 export default function PostersImage() {
     // Dropdown state for which menu is open
     const [isVisible, setIsVisible] = useState<null | 'size' | 'category'>(null);
+    const [section, setSection] = useState<string | 'smartScript' | 'advancedScript'>("smartScript");
     // State for selected values
     const [selectedSize, setSelectedSize] = useState<string>("1080 x 1920 px");
     const [selectedCategory, setSelectedCategory] = useState<string>("Foods and Beverages");
@@ -19,8 +21,29 @@ export default function PostersImage() {
         require('../assets/images/designs (4).jpg'),
         require('../assets/images/designs (5).jpg'),
         require('../assets/images/designs (6).jpg'),
+        require('../assets/images/designs (7).jpg'),
+        require('../assets/images/designs (8).jpg'),
+        require('../assets/images/designs (9).jpg'),
+        require('../assets/images/designs (10).jpg'),
+        require('../assets/images/designs (11).jpg'),
+        require('../assets/images/designs (12).jpg'),
+        require('../assets/images/designs (13).jpg'),
     ];
 
+const advancedSection = () =>{
+    setSection("advancedScript")
+}
+
+    const switchSection = () =>{
+        if (section === "advancedScript") {
+            setSection("smartScript");
+        } else {
+            setSection("advancedScript");
+        }
+    }
+    const smartSection = () =>{
+        setSection("smartScript")
+    }
 
     const dimensions = [
 "1080 x 1920 px",
@@ -33,13 +56,76 @@ export default function PostersImage() {
         "Foods and Beverages",
         "Travel and Leisure",
         "Health and Wellness",
+        "Brand Promotion",
+        "Podcasts",
     ];
     
 
     const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
 
     return(
-        <View>
+      <View style={styles.mainView}>
+<Ionicons name="close" size={28} color="white" onPress={switchSection} style={{
+    left: 0,
+    marginBottom: 15,
+}} />
+       <View style={styles.scripts}>
+        <TouchableOpacity
+            onPress={smartSection}
+            accessibilityLabel="Switch to smart script poster creation section"
+            style={{
+                marginBottom: 10,
+                width: '45%',
+                
+            }}
+        >
+            <Text style={styles.advanced}> Smart script</Text>
+            {section === "smartScript" && (
+                <LinearGradient
+                    colors={['#0aace2ff', '#185a9d', '#644fe8ff']}
+                    start={{ x: 0, y: 0 }}
+                    end={{ x: 1, y: 0 }}
+                    style={{
+                        height: 4,
+                        width: '100%',
+                        position: 'absolute',
+                        bottom: 0,
+                        left: 0,
+                        borderRadius: 2,
+                    }}
+                />
+            )}
+        </TouchableOpacity>
+
+        <TouchableOpacity
+            onPress={advancedSection}
+            accessibilityLabel="Switch to advanced poster creation section"
+            style={{
+                marginBottom: 10,
+                width: '45%',
+            }}
+        >
+            <Text style={styles.advanced}> Advanced script</Text>
+            {section === "advancedScript" && (
+                <LinearGradient
+                    colors={['#0aace2ff', '#185a9d', '#644fe8ff']}
+                    start={{ x: 0, y: 0 }}
+                    end={{ x: 1, y: 0 }}
+                    style={{
+                        height: 3,
+                        width: '100%',
+                        position: 'absolute',
+                        bottom: 0,
+                        left: 0,
+                        borderRadius: 2,
+                    }}
+                />
+            )}
+        </TouchableOpacity>
+
+        </View>
+         {section === "smartScript" && (
+             <View>
             <Text style={styles.question}>What type of poster do you want to create?</Text>
             <FlatList
                 horizontal
@@ -170,7 +256,23 @@ export default function PostersImage() {
     hint="Generates a poster based on the selected options"
 />
 
-        </View>
+        </View>)}
+
+        {section === "advancedScript" && (<View>
+           <Text style={styles.question}>Advanced Poster Creation</Text>
+           <TextInput
+              style={styles.input}
+              placeholder="Enter advanced poster details"
+              placeholderTextColor="gray"
+              multiline={true}
+              numberOfLines={6}
+              accessibilityLabel="Advanced poster details input"
+              accessibilityHint="Enter the details for your advanced poster"
+           />
+
+           </View>
+           )}
+      </View>
     );
 }
 
@@ -178,11 +280,40 @@ export default function PostersImage() {
 
 // Styles Goes here.
     const styles = StyleSheet.create({
+mainView:{
+    padding: 0
+},
+scripts:{
+    width: '100%',
+    flexDirection: 'row',
+    gap: 20,
+    marginBottom: 10,
+    display: 'flex',
+    // justifyContent: 'space-between',
+    
+},
+
+smart:{
+color: 'white',
+fontSize: 20,
+fontWeight: '800',
+fontFamily: 'System',
+},
+advanced:{
+    color: 'white',
+    fontSize: 20,
+    fontWeight: '800',
+    fontFamily: 'System',
+    paddingBottom: 10,
+    textAlign: 'center',
+    
+},
+
 question:{
 color: 'white',
 fontSize: 20,
 fontWeight: '800',
-fontFamily: 'Sans-serif',
+fontFamily: 'System',
 
 },
 container:{

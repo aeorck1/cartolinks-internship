@@ -9,7 +9,9 @@ const isDark = scheme ==="dark";
 
 
   return (
-   <SafeAreaView style={styles.body}>
+// Initially was <SafeAreaView> but changed to <View> to fix some issues
+
+   <View style={styles.body}>
      <StatusBar showHideTransition="slide" backgroundColor={!isDark ? "#fff" : "#000"} barStyle={isDark ? "light-content" : "dark-content"} />
      <ScrollView style= {styles.body}
     >
@@ -20,7 +22,7 @@ const isDark = scheme ==="dark";
         <PostersImage />
       </View>
     </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 }
 
@@ -29,12 +31,13 @@ const styles = StyleSheet.create({
   body:{
     backgroundColor: 'black',
     flex: 1,
-    padding: 4,
+    padding: 2,
   },
 
   container: {
-    marginTop: 15,
-    paddingVertical: 15,
+    // marginTop: 15,
+   
+  
   },
   text : {
     color: 'white',
