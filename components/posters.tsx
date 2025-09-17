@@ -1,11 +1,16 @@
 import React, { useState } from "react";
-import { FlatList, Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
-import Dropdown from "./dropdown";
-// import { mappedImages } from "@/images";
+import { FlatList, Image, Pressable, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import Ionicons from 'react-native-vector-icons/Ionicons'
 
 
 
 export default function PostersImage() {
+    // Dropdown state for which menu is open
+    const [isVisible, setIsVisible] = useState<null | 'size' | 'category'>(null);
+    // State for selected values
+    const [selectedSize, setSelectedSize] = useState<string>("1080 x 1920 px");
+    const [selectedCategory, setSelectedCategory] = useState<string>("Foods and Beverages");
+
     const images = [
         require('../assets/images/designs (1).jpg'),
         require('../assets/images/designs (2).jpg'),
@@ -14,11 +19,13 @@ export default function PostersImage() {
         require('../assets/images/designs (5).jpg'),
         require('../assets/images/designs (6).jpg'),
     ];
+
+
     const dimensions = [
-"1080x1920 px",
-"1200x628 px",
-"1080x1080 px",
-"1920x1080 px",
+"1080 x 1920 px",
+        "1200 x 628 px",
+        "1080 x 1080 px",
+        "1920 x 1080 px",
     ]
 
     const categories = [
@@ -26,6 +33,7 @@ export default function PostersImage() {
         "Travel and Leisure",
         "Health and Wellness",
     ];
+    
 
     const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
 
@@ -66,8 +74,51 @@ export default function PostersImage() {
 
             <View style={styles.settingsSection}>
                 <Text style={styles.settings}>Settings</Text>
-                <Dropdown label=" Size" options={dimensions} />
-                <Dropdown label=" Category" options={categories} />
+            
+
+                {/* Size Selection */}
+                <View style={styles.selectRow}>
+                    <Text style={styles.selectLabel}>Size</Text>
+                    <Pressable
+                        style={styles.selectBox}
+                        onPress={() => setIsVisible(isVisible === 'size' ? null : 'size')}
+                    >
+                        <Text style={styles.selectValue}>{selectedSize}</Text>
+                         <Ionicons name="chevron-forward" size={18} color="white" style={{ marginLeft: 8 }} />
+                    </Pressable>
+                </View>
+                {isVisible === 'size' && (
+                    <View style={styles.dropdownMenu}>
+                        {dimensions.map((dim, idx) => (
+                            <Pressable key={dim} onPress={() => { setSelectedSize(dim); setIsVisible(null); }}>
+                                <Text style={styles.dropdownItem}>{dim}</Text>
+                            </Pressable>
+                        ))}
+                    </View>
+                )}
+
+                {/* Category Selection */}
+                <View style={styles.selectRow}>
+                    <Text style={styles.selectLabel}>Category</Text>
+                    <Pressable
+                        style={styles.selectBox}
+                        onPress={() => setIsVisible(isVisible === 'category' ? null : 'category')}
+                    >
+                        <Text style={styles.selectValue}>{selectedCategory}</Text>
+                        
+                        
+                        <Ionicons name="chevron-forward" size={18} color="white" style={{ marginLeft: 8 }} />
+                    </Pressable>
+                </View>
+                {isVisible === 'category' && (
+                    <View style={styles.dropdownMenu}>
+                        {categories.map((cat, idx) => (
+                            <Pressable key={cat} onPress={() => { setSelectedCategory(cat); setIsVisible(null); }}>
+                                <Text style={styles.dropdownItem}>{cat}</Text>
+                            </Pressable>
+                        ))}
+                    </View>
+                )}
             </View>
         </View>
     );
@@ -84,7 +135,26 @@ fontWeight: '800',
 fontFamily: 'Sans-serif',
 
 },
-
+container:{
+backgroundColor: '#bf5e5eff',
+color: 'white',
+position: 'relative',
+},
+chev:{
+    width: 4,
+    height: 4,    
+    position: 'absolute',
+    zIndex: 4,
+},
+label:{
+    color: 'white',
+},
+dimensions:{
+position: 'absolute',
+top: 30,
+backgroundColor: '#bb1111ff',
+width: '50%',
+},
         scrollView: {
             height: 110,
             marginTop:4,
@@ -104,12 +174,12 @@ fontFamily: 'Sans-serif',
         settingsSection: {
             marginTop: 20,
             borderTopWidth: 1,
-            borderColor: '#3a3a3aff',
-            borderWidth: 2,
+           
         },
         settings: {
             color: '#b8b8b8ff',
-            marginTop: 20
+            marginTop: 20,
+            marginBottom: 6,
         },
         input: {
             position: 'relative',
@@ -131,5 +201,49 @@ fontFamily: 'Sans-serif',
             width: 20,
             height: 20,
             filter: 'invert(1)',
-        }
+        },
+        selectRow: {
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            gap: 10,
+            padding: 8,
+            backgroundColor: 'rgba(35, 35, 35, 1)',
+        },
+        selectLabel: {
+            color: '#b8b8b8ff',
+            fontSize: 16,
+        },
+        selectBox: {
+            backgroundColor: '#232323',
+            borderRadius: 8,
+            paddingVertical: 10,
+            paddingHorizontal: 16,
+            minWidth: 140,
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+            
+        },
+        selectValue: {
+            color: 'white',
+            fontSize: 16,
+        },
+        dropdownMenu: {
+            backgroundColor: '#000000ff',
+            borderRadius: 8,
+            marginTop: 4,
+            borderWidth: 1,
+            borderColor: '#333',
+            position: 'absolute',
+            left: 0,
+            right: 0,
+            zIndex: 10,
+        },
+        dropdownItem: {
+            color: 'white',
+            paddingVertical: 12,
+            paddingHorizontal: 16,
+            fontSize: 16,
+        },
     });

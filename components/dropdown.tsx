@@ -1,36 +1,21 @@
 
-import { Picker } from '@react-native-picker/picker';
-import React, { useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, {useState} from 'react';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 
-interface DropdownProps {
-    label: string;
-    options: string[];
-    value?: string;
-    onValueChange?: (value: string) => void;
-}
 
-const Dropdown: React.FC<DropdownProps> = ({ label, options, value, onValueChange }) => {
-    const [selectedValue, setSelectedValue] = useState(value || options[0] || '');
-
-    const handleValueChange = (itemValue: string) => {
-        setSelectedValue(itemValue);
-        if (onValueChange) onValueChange(itemValue);
-    };
-
+const Dropdown = (labelThis:any) => {
+const [isVisible, setIsVisible] = useState(false);
     return (
         <View style={styles.container}>
-            <Text style={styles.label}>{label}</Text>
-            <Picker
-                style={styles.dropdownContainer}
-                dropdownIconColor='white'
-                selectedValue={selectedValue}
-                onValueChange={handleValueChange}
-            >
-                {options.map((option, index) => (
-                    <Picker.Item key={index} label={option} value={option} style={styles.pickerItem} />
-                ))}
-            </Picker>
+            {/* <Text style={styles.label}>{label}</Text> */}
+            <Pressable 
+            onPress={()=> setIsVisible(!isVisible)} >
+                <Text>hi</Text>
+            </Pressable>
+
+            {isVisible && (
+                <View style={styles.dropdownContainer}><Text>{labelThis}</Text></View>
+            )}
         </View>
     );
 };
