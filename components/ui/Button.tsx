@@ -5,7 +5,7 @@ export default function GenerateButton ({ buttonName, funcTrigger, hint }: { but
         <View>
             <View style={buttonStyle.thisButton} onTouchStart={funcTrigger} accessibilityRole="button" accessibilityLabel={buttonName} accessibilityHint={hint}>
                 {/* <Button title={buttonName} onPress={() => {}} color="#f194ff" /> */}
-               <Image source={require('../../assets/images/Chat.jpg')} style={{ width: 24, height: 24 }} />
+               <Image source={require('../../assets/images/Chat.png')} style={{ width: 30, height: 30 }} />
                 <Text style={buttonStyle.textformat}>{buttonName}</Text>
             </View>
         </View>

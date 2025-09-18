@@ -260,15 +260,7 @@ const advancedSection = () =>{
 
         {section === "advancedScript" && (<View>
            <Text style={styles.question}>Advanced Poster Creation</Text>
-           <TextInput
-              style={styles.input}
-              placeholder="Enter advanced poster details"
-              placeholderTextColor="gray"
-              multiline={true}
-              numberOfLines={6}
-              accessibilityLabel="Advanced poster details input"
-              accessibilityHint="Enter the details for your advanced poster"
-           />
+         
 
            </View>
            )}
